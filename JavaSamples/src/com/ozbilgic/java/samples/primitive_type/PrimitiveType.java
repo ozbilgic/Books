@@ -1,7 +1,7 @@
 package com.ozbilgic.java.samples.primitive_type;
 
 /**
- * Created Vision2 on 19.11.2014 - 17:23.
+ * Created Vision2 on 19.11.2014 - 17:23..
  */
 public class PrimitiveType {
     public static void main(String[] args) {
