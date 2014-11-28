@@ -3,14 +3,16 @@ package com.ozbilgic.java.samples.Console;
 import java.util.Scanner;
 
 /**
- * Created Vision2 on 27.11.2014 - 17:33.
+ * @author Vision2
+ * @since 27.11.2014
+ * @version 0.0.2
  */
 public class ConsoleDataEntered {
     /**
-     * Aşağıda konsoldan veri alabilen bir uygulama mevcuttur.
-     * main metoduna dışarıdan veri atanabilir.
-     * Ör. Consol: java com.ozbilgic.java.samples.Console.ConsoleDataEntered "deger" "deger2" ...
-     * @param args: dışarıdan veriyi alan nesne.
+     * main(String[] args) metodu olusturuldugu sinifa kendi basina calisabilen bir ozellik katar.
+     * Bu metoda disaridan veri atanabilir.
+     * Eg. Console: java com.ozbilgic.java.samples.Console.ConsoleDataEntered deger deger2 ...
+     * @param args: disaridan veriyi alan nesne (gelen verinin turu farketmez).
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,7 +25,7 @@ public class ConsoleDataEntered {
         } while (!s.equals("exit"));
 
         /**
-         * main metodunun dışarıdan aldığı verilerin konsola yazdırılması...
+         * main(String[] args) metodunun dışarıdan aldığı verilerin konsola yazdırılması...
          */
         System.out.println("Argumanlar:");
         for (String ss:args) {
