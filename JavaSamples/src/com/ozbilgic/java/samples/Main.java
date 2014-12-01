@@ -14,5 +14,10 @@ public class Main {
 
         Integer i0 = 0; //sarmalayici sinif atamasi. "i0" nesnesine bircok ozellik kazandirir.
         int i1 = 0; //ilkel tip atamasi. Sadece veriyi okuma ve yazma icin.
+        String s = "15.2";
+        double d;
+        d = Double.parseDouble(s);
+        System.out.println(d);
+        System.out.println(s.equals("15"));
     }
 }
