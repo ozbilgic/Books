@@ -19,7 +19,7 @@ public class Test {
         System.out.println(msg);
     }
 
-    static int toplam() {
+    public static int toplam() {
         return j;
     }
 

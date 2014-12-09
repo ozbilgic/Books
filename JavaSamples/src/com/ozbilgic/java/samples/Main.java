@@ -3,6 +3,8 @@
  */
 package com.ozbilgic.java.samples;
 
+import com.ozbilgic.java.samples.InnerClass.MemberClass;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
