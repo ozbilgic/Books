@@ -129,6 +129,25 @@ public class Main {
         int[][][][][][] dizi = new int[2][3][2][2][1][2];//2*3*2*2*1*2 = 48 elemanlı matriks
         System.out.println("çok boyutlu dizi: "+dizi.length);
         dizi[1][2][1][1][0][1] = 1;//dizinin son elemanı.
+
+        class Telefon {
+            public void aramaYap(String no) {
+                System.out.println(no + " aranıyor...");
+            }
+
+            public void smsGonder(String no) {
+                System.out.println(no + " sms gönderiliyor...");
+            }
+        }
+
+        class YeniTelefon extends Telefon {
+            public void videoKaydet() {
+                System.out.println("Video kaydı yapılıyor...");
+            }
+        }
+
+        Telefon telefon = new YeniTelefon(); //upcasting
+        telefon.aramaYap("55544466");
     }
 
     public static void dongu() {

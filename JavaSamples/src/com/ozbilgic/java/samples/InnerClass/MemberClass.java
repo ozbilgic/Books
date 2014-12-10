@@ -104,6 +104,42 @@ public class MemberClass {
         }
     }
 
+    public static class A {
+        public A() {
+            System.out.println("A sınıfı");
+        }
+
+        public void msg() {
+            System.out.println("A");
+        }
+    }
+
+    public static class B extends A {
+        public B() {
+            System.out.println("B sınıfı");
+        }
+
+        @Override
+        public void msg() {
+            System.out.println("B");
+        }
+    }
+
+    public static class C extends B {
+        public C() {
+            System.out.println("C sınıfı");
+        }
+
+        @Override
+        public void msg() {
+            System.out.println("C");
+        }
+    }
+
+    public static void msg(A polimorfizm) {
+        polimorfizm.msg();
+    }
+
     public static void main(String[] args) {
         Hesapla.DortIslem.Topla topla = new Hesapla().new DortIslem().new Topla();
         topla.Toplam(5, 10);
@@ -122,5 +158,13 @@ public class MemberClass {
         Hesapla2.DortIslem.cikart.cikar(5, 9);
         Hesapla2.DortIslem.carp.carpim(4, 2);
         Hesapla2.DortIslem.bol.bolum(9, 3);
+
+        A a = new A();
+        B b = new B();
+        C c = new C();
+
+        msg(a);
+        msg(b);
+        msg(c);
     }
 }
