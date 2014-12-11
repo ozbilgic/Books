@@ -1,8 +1,6 @@
 package com.ozbilgic.java.samples.IO;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -45,6 +43,7 @@ public class FileDirectory {
         try {
             file = File.createTempFile("temp", ".txt"); //suffix null olursa varsayılan değer ".tmp" atanır.
             System.out.println("temp dosyası oluşturuldu: '"+file.getName()+"'");
+            System.out.println("temp path: "+file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +72,70 @@ public class FileDirectory {
             String[] fileList = file.list(); //belirtilen klasördeki dosya isimlerini alır.
             for (String f : fileList)
                 System.out.println("dosya adı: " + f);
+        }
+
+        /**
+         * list() metodundan farkı bulunan dosyaları File nesnesine atamak
+         * dolayısı ile dosyalar üzerinde işlem yapılabilir.
+         */
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+
+            try {
+                for (File f : files) // klasör de hiç dosya yoksa NullPointerException hatası verir.
+                    System.out.println("dosya adı: " + f.getName() + " dosya mı?: " + f.isFile());
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        /**
+         * Sistemde bulunan kök dizinleri verir yani c: d: e: gibi...
+         */
+        File[] kokDizinler = File.listRoots();
+        for (File f: kokDizinler)
+            System.out.println(f);
+
+        //file.mkdir(); belirtilen yolda klasör oluşturur. dönüş tipi boolean.
+        //file.renameTo(new File("...")); belirtilen yoldaki klasör veya dosya adını değiştirir. dönüş tipi boolean.
+        //file.setReadOnly(); belirtilen yoldaki dosyayı sadece okunabilir yapmak için. dönüş tipi boolean.
+        //file.setWritable(true - false); dosyayı yazılabilir-değiştirilebilir duruma getirir. boolean.
+        System.out.println(file.toString()); //dosya yolunu string olarak döndürür.
+
+        String lnxPath = sep+"home"+sep+"o...";
+        File lnxFile;// = new File(lnxPath);
+
+        /*
+        String[] lnxFileList = lnxFile.list();
+        for (String s: lnxFileList)
+            System.out.println(s);
+            */
+
+        lnxPath += sep+"java_denemeler";
+        lnxFile = new File(lnxPath);
+        if (lnxFile.mkdir())
+            System.out.println("klasör oluşturuldu");
+
+        lnxPath += sep+"test.txt";
+        lnxFile = new File(lnxPath);
+        try {
+            if (lnxFile.createNewFile())
+                System.out.println("dosya oluşturuldu");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        InputStream inStream;
+        try {
+            inStream = new FileInputStream(lnxPath);
+            int byt;
+
+            while ((byt = inStream.read()) != -1) {
+                System.out.print((char)byt);
+            }
+            inStream.close();
+        } catch (IOException e) {
+            System.out.println("hata oluştu: "+e.getMessage());
         }
     }
 }
