@@ -9,6 +9,8 @@ import java.util.Date;
  * @since 11.12.2014
  */
 public class FileDirectory {
+    public static String lnxPath;
+
     public static void main(String[] args) {
         String sep = File.separator + File.separator;
         File file = new File("C:" + sep + "JAVA" + sep + "java.txt"); //dosya işlemleri için referans
@@ -102,7 +104,7 @@ public class FileDirectory {
         //file.setWritable(true - false); dosyayı yazılabilir-değiştirilebilir duruma getirir. boolean.
         System.out.println(file.toString()); //dosya yolunu string olarak döndürür.
 
-        String lnxPath = sep+"home"+sep+"o...";
+        lnxPath = "C:"+sep+"JAVA";//+sep+"ozbilgic";
         File lnxFile;// = new File(lnxPath);
 
         /*
@@ -126,16 +128,100 @@ public class FileDirectory {
         }
 
         InputStream inStream;
+        byte[] data = new byte[0xff];
         try {
             inStream = new FileInputStream(lnxPath);
             int byt;
-
-            while ((byt = inStream.read()) != -1) {
-                System.out.print((char)byt);
+            System.out.println("byte sayısı: "+inStream.available());
+            while ((byt = inStream.read(data)) != -1) {
+                //inStream.skip(2); //2 byte lık veriyi atlar
+                //System.out.print((char)byt);
+                for (byte b: data) {
+                    System.out.print((char) b);
+                }
             }
             inStream.close();
         } catch (IOException e) {
             System.out.println("hata oluştu: "+e.getMessage());
+        }
+
+        BufferedInputStream buffStream;
+        try {
+            inStream = new FileInputStream(lnxPath);
+            buffStream = new BufferedInputStream(inStream, inStream.available());
+            int byt;
+            if (buffStream.markSupported()) System.out.println("mark destekliyor"); else System.out.println("mark desteklemiyor");
+            boolean dongu = false;
+            while ((byt = buffStream.read()) != -1) {
+                System.out.print((char)byt);
+                if (byt == 122) { //z
+                    buffStream.mark(0);
+                    System.out.println("\n'z' harfine işaret konuldu.");
+                    //return;
+                }
+            }
+
+            System.out.println("\nişaretli yerden itibaren tekrar oku");
+            buffStream.reset();
+            while ((byt = buffStream.read()) != -1) {
+                System.out.print((char)byt);
+            }
+
+            inStream.close();
+            buffStream.close();
+        } catch (IOException e) {
+            System.out.println("hata oluştu: "+e.getMessage());
+        }
+        System.out.println();
+
+        BufferedInputStream bf = buffMarkReader(lnxPath, 'e');
+        buffMarkAfterReader(bf);
+    }
+
+    /**
+     * Belirtilen yoldaki dosyanın içeriğini belirtilen karaktere kadar okuduktan sonra o harfe işaret koyar
+     * @param path Dosya yolu.
+     * @param c İşaretlenecek karakter.
+     * @return BufferedInputStream.
+     */
+    public static BufferedInputStream buffMarkReader(String path, char c) {
+        InputStream inStream;
+        BufferedInputStream buffinStream;
+        int character = (int)c;
+        System.out.println("karakter: "+(char)character);
+
+        try {
+            inStream = new FileInputStream(path);
+            buffinStream = new BufferedInputStream(inStream, inStream.available());
+            int byt;
+
+            while ((byt = buffinStream.read()) != -1) {
+                System.out.print((char)byt);
+                if (byt == character) {
+                    buffinStream.mark(0);
+                    return buffinStream;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR: "+e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Gelen parametre değerindeki streamı işaretlenen karaktere döndürür ve geriye kalanı okur.
+     * @param buffinStream BufferedInputStream.
+     */
+    public static void buffMarkAfterReader(BufferedInputStream buffinStream) {
+        try {
+            int byt;
+            buffinStream.reset();
+            while ((byt = buffinStream.read()) != -1) {
+                System.out.print((char)byt);
+            }
+            buffinStream.close();
+        } catch (IOException e) {
+            System.out.println("ERROR: "+e.getMessage());
         }
     }
 }
