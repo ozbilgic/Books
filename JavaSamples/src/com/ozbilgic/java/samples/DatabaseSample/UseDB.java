@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class UseDB {
     public static void main(String[] args) {
-        ConnectDatabase db = new ConnectDatabase("C:\\Users\\Vision2\\Documents\\GitHub\\Books\\SqliteTest.sqlite");
+        ConnectDatabase db = new ConnectDatabase("...dbpath...");
         db.connect();
         db.getAllData();
 
