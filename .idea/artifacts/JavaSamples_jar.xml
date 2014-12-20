@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JavaSamples:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaSamples_jar</output-path>
+    <root id="archive" name="JavaSamples.jar">
+      <element id="module-output" name="JavaSamples" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/sqlite-jdbc-3.8.7.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
